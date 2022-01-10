@@ -1,6 +1,8 @@
 NAME = libft.a
 
-SRCS = 	ft_atoi.c ft_bzero.c ft_calloc.c\
+HEADER = libft.h
+
+SRC = 	ft_atoi.c ft_bzero.c ft_calloc.c\
 		ft_isalnum.c ft_isalpha.c\
 		ft_isascii.c ft_isdigit.c ft_isprint.c\
 		ft_itoa.c ft_memchr.c ft_memcmp.c\
@@ -12,33 +14,38 @@ SRCS = 	ft_atoi.c ft_bzero.c ft_calloc.c\
 		ft_strnstr.c ft_strrchr.c ft_strtrim.c\
 		ft_substr.c ft_tolower.c ft_toupper.c\
 
-OBJS = ${SRCS:.c=.o}
+OBJ = ${SRC:.c=.o}
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c\
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c\
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 
-BONUS_OBJS = ${BONUS:.c=.o}
+BONUS_OBJ = ${BONUS:.c=.o}
 
 CC				= gcc
 RM				= rm -f
-CFLAGS			= -Wall -Wextra -Werror -I.
+CFLAGS			= -Wall -Wextra -Werror -I $(HEADER)
 
-NAME			= libft.a
 
 all:			$(NAME)
 
-$(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
+%.o: %.c  $(HEADER)
+				@gcc $(FLAGS) -c $< -o $@
 
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+$(NAME):		$(OBJ)
+				@ar rc $(NAME) $(OBJ)
+				@ranlib $(NAME)
+				rm *.o
+
+bonus:			$(OBJ) $(BONUS_OBJ)
+				@ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
+				@ranlib $(NAME)
 
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+				@$(RM) $(OBJ) $(BONUS_OBJ)
 
 fclean:			clean
-				$(RM) $(NAME)
+				@$(RM) $(NAME)
 
 re:				fclean $(NAME)
 
