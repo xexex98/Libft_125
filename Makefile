@@ -32,10 +32,10 @@ all:			$(NAME)
 %.o: %.c
 				@gcc $(CFLAGS) -c $< -o $@
 
-$(NAME):		$(OBJ)
+$(NAME):		$(OBJ) $(HEADER)
 				@ar rcs $(NAME) $(OBJ)
 
-bonus:			$(OBJ) $(BONUS_OBJ)
+bonus:			$(OBJ) $(BONUS_OBJ) $(HEADER)
 				@ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
 
 clean:
