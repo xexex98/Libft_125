@@ -1,6 +1,6 @@
-NAME = libft.a
+NAME = libft.a\
 
-HEADER = libft.h
+HEADER = libft.h\
 
 SRC = 	ft_atoi.c ft_bzero.c ft_calloc.c\
 		ft_isalnum.c ft_isalpha.c\
@@ -14,13 +14,13 @@ SRC = 	ft_atoi.c ft_bzero.c ft_calloc.c\
 		ft_strnstr.c ft_strrchr.c ft_strtrim.c\
 		ft_substr.c ft_tolower.c ft_toupper.c\
 
-OBJ = ${SRC:.c=.o}
+OBJ = ${SRC:%.c=%.o}
 
 BONUS = ft_lstnew.c ft_lstadd_front.c ft_lstsize.c\
 		ft_lstlast.c ft_lstadd_back.c ft_lstdelone.c\
 		ft_lstclear.c ft_lstiter.c ft_lstmap.c\
 
-BONUS_OBJ = ${BONUS:.c=.o}
+BONUS_OBJ = ${BONUS:%.c=%.o}
 
 CC				= gcc
 RM				= rm -f
@@ -29,17 +29,14 @@ CFLAGS			= -Wall -Wextra -Werror -I $(HEADER)
 
 all:			$(NAME)
 
-%.o: %.c  $(HEADER)
-				@gcc $(FLAGS) -c $< -o $@
+%.o: %.c
+				@gcc $(CFLAGS) -c $< -o $@
 
 $(NAME):		$(OBJ)
-				@ar rc $(NAME) $(OBJ)
-				@ranlib $(NAME)
-				rm *.o
+				@ar rcs $(NAME) $(OBJ)
 
 bonus:			$(OBJ) $(BONUS_OBJ)
 				@ar rcs $(NAME) $(OBJ) $(BONUS_OBJ)
-				@ranlib $(NAME)
 
 clean:
 				@$(RM) $(OBJ) $(BONUS_OBJ)
